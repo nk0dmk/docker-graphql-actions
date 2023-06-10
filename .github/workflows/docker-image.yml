@@ -40,19 +40,28 @@ jobs:
         echo "logged in docker hub"
         echo "pushing new version: $NEW_VERSION to hub"
 
-    - name: Build and Push Docker Image
-      env:
-        # add variable to env from semantic version output
-        NEW_VERSION: ${{ steps.version.outputs.version }}
-      run: |
-        docker build -t web000/docker-graphql:$NEW_VERSION .
-        docker build -t web000/docker-graphql:latest .
+    # - name: Build and Push Docker Image
+    #   env:
+    #     # add variable to env from semantic version output
+    #     NEW_VERSION: ${{ steps.version.outputs.version }}
+    #   run: |
+    #     docker build -t web000/docker-graphql:$NEW_VERSION .
+    #     docker build -t web000/docker-graphql:latest .
     
-    - name: Push Docker image
-      # we can use step output directly?
-      run: |
-        docker push web000/docker-graphql:${{ steps.version.outputs.version }}
-        docker push web000/docker-graphql:latest
+    # - name: Push Docker image
+    #   env:
+    #     # add variable to env from semantic version output
+    #     NEW_VERSION: ${{ steps.version.outputs.version }}
+    #   run: |
+    #     docker push web000/docker-graphql:$NEW_VERSION
+    #     docker push web000/docker-graphql:latest
+
+
+    # - name: Push Docker image
+    #   # we can use step output directly?
+    #   run: |
+    #     docker push web000/docker-graphql:${{ steps.version.outputs.version }}
+    #     docker push web000/docker-graphql:latest
 
     # Version - EXAMPLE 
     # - name: Build the Docker image
