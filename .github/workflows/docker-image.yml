@@ -33,7 +33,6 @@ jobs:
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         # add variable to env from semantic version output
         NEW_VERSION: ${{ steps.semantic.outputs.version }}
-
       run: |
         echo "trying to sign in docker hub"
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
@@ -42,7 +41,6 @@ jobs:
 
     - name: Build and Push Docker Image
       env:
-        # add variable to env from semantic version output
         NEW_VERSION: ${{ steps.semantic.outputs.version }}
       run: |
         docker build -t web000/docker-graphql:$NEW_VERSION .
@@ -50,19 +48,12 @@ jobs:
     
     - name: Push Docker image
       env:
-        # add variable to env from semantic version output
         NEW_VERSION: ${{ steps.semantic.outputs.version }}
       run: |
         docker push web000/docker-graphql:${{ steps.semantic.outputs.version }}
         docker push web000/docker-graphql:latest
 
 
-    # - name: Push Docker image
-    #   # we can use step output directly?
-    #   run: |
-    #     docker push web000/docker-graphql:${{ steps.version.outputs.version }}
-    #     docker push web000/docker-graphql:latest
-
-    # Version - EXAMPLE 
+    # Simple Version - EXAMPLE 
     # - name: Build the Docker image
     #   run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
