@@ -25,7 +25,7 @@ jobs:
       run: |
         echo "trying to sign in docker hub"
         docker login -u $DOCKER_USER
-         echo $DOCKER_PASSWORD | read param
+         cat <<< $DOCKER_PASSWORD
         echo "logged in docker hub"
 
     - name: Build and Push Docker Image
