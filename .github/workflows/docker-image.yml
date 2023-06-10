@@ -27,7 +27,7 @@ jobs:
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
         echo "logged in docker hub"
 
-    - name: Build Docker Image
+    - name: Build and Push Docker Image
       run: |
         docker build -t web000/docker-graphql:0.0.2 .
     
