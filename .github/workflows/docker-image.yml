@@ -54,6 +54,6 @@ jobs:
         docker push web000/docker-graphql:${{ steps.version.outputs.version }}
         docker push web000/docker-graphql:latest
 
-    # EXAMPLE
+    # Version - EXAMPLE 
     # - name: Build the Docker image
     #   run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
