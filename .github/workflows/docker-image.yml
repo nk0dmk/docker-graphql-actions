@@ -24,8 +24,7 @@ jobs:
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       run: |
         echo "trying to sign in docker hub"
-        docker login -u $DOCKER_USER
-         cat <<< $DOCKER_PASSWORD
+        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
         echo "logged in docker hub"
 
     - name: Build and Push Docker Image
