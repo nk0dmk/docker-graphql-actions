@@ -17,53 +17,18 @@ jobs:
       uses: actions/checkout@v3
       with:
         fetch-depth: 0
-
-    - name: Git Semantic version
-      uses: PaulHatch/semantic-version@v5.0.3
+    
+    - name: Git Semantic Version
+      uses: PaulHatch/semantic-version@v4.0.3
       with:
         major_pattern: "major:"
         minor_pattern: "feat:"
-        version_format: "${major}.${minor}.${patch}-prerelease${increment}"
-        search_commit_body: true
-      # out variable of action
+        format: "${major}.${minor}.${patch}-prerelease${increment}"
       id: version
-
-    - name: Docker login
+    
+    - name: Docker Login
       env:
         DOCKER_USER: ${{ secrets.DOCKER_USER }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-        # add variable to env from semantic version output
-        NEW_VERSION: ${{ steps.version.outputs.version }}
-
       run: |
-        echo "trying to sign in docker hub"
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-        echo "logged in docker hub"
-        echo "pushing new version: $NEW_VERSION to hub"
-
-    # - name: Build and Push Docker Image
-    #   env:
-    #     # add variable to env from semantic version output
-    #     NEW_VERSION: ${{ steps.version.outputs.version }}
-    #   run: |
-    #     docker build -t web000/docker-graphql:$NEW_VERSION .
-    #     docker build -t web000/docker-graphql:latest .
-    
-    # - name: Push Docker image
-    #   env:
-    #     # add variable to env from semantic version output
-    #     NEW_VERSION: ${{ steps.version.outputs.version }}
-    #   run: |
-    #     docker push web000/docker-graphql:$NEW_VERSION
-    #     docker push web000/docker-graphql:latest
-
-
-    # - name: Push Docker image
-    #   # we can use step output directly?
-    #   run: |
-    #     docker push web000/docker-graphql:${{ steps.version.outputs.version }}
-    #     docker push web000/docker-graphql:latest
-
-    # Version - EXAMPLE 
-    # - name: Build the Docker image
-    #   run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
